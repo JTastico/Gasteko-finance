@@ -1,39 +1,58 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './styles_all.css';
-
 
 const Register = () => {
   const [formData, setFormData] = useState({
     nombre: '',
     apellido: '',
     edad: '',
-    moneda: '',
+    moneda: '', // Store the selected currency ID
     ciudad: '',
-    pais: '',
+    pais: '', // Store the selected country ID
     celular: '',
     correo: '',
   });
 
-  const monedas = ['Soles', 'Dólares', 'Pesos', 'Euros'];
-  const paises = ['Perú', 'México', 'España', 'Argentina', 'Estados Unidos'];
+  const [monedas, setMonedas] = useState([]);
+  const [paises, setPaises] = useState([]);
 
+  // Fetch coins from API
+  useEffect(() => {
+    axios.get('http://127.0.0.1:8000/api/finance/monedas/')
+      .then(response => setMonedas(response.data)) // Save coins to state
+      .catch(error => console.log('Error fetching coins:', error)); // Log errors
+  }, []);
+
+  // Fetch countries from API
+  useEffect(() => {
+    axios.get('http://127.0.0.1:8000/api/finance/paises/')
+      .then(response => {
+        console.log('Paises:', response.data);
+        setPaises(response.data); // Save countries to state
+      })
+      .catch(error => console.log('Error fetching countries:', error)); // Log errors
+  }, []);
+
+  // Handle form input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({ ...formData, [name]: value }); // Update the state
   };
 
+  // Handle form submission
   const handleSubmit = (e) => {
-    e.preventDefault();
-    // Lógica para el registro
-    console.log('Datos del registro:', formData);
+    e.preventDefault(); // Prevent page reload
+    console.log('Registration data:', formData); // Debugging output
+    // Here, send formData to the backend
   };
 
   return (
     <div className="auth-container">
-      <h2>Registro</h2>
+      <h2>Register</h2>
       <form onSubmit={handleSubmit} className="auth-form">
         <div className="form-group">
-          <label htmlFor="nombre">Nombre</label>
+          <label htmlFor="nombre">First Name</label>
           <input
             type="text"
             id="nombre"
@@ -44,7 +63,7 @@ const Register = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="apellido">Apellido</label>
+          <label htmlFor="apellido">Last Name</label>
           <input
             type="text"
             id="apellido"
@@ -55,7 +74,7 @@ const Register = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="edad">Edad</label>
+          <label htmlFor="edad">Age</label>
           <input
             type="number"
             id="edad"
@@ -65,42 +84,55 @@ const Register = () => {
             required
           />
         </div>
+
+        {/* Coin Selection */}
         <div className="form-group">
           <label htmlFor="moneda">Tipo de Moneda</label>
           <select
             id="moneda"
             name="moneda"
-            value={formData.moneda}
+            value={formData.moneda} // Match the ID with the selected value
             onChange={handleInputChange}
             required
           >
             <option value="">Seleccionar</option>
-            {monedas.map((moneda, index) => (
-              <option key={index} value={moneda}>
-                {moneda}
-              </option>
-            ))}
+            {monedas.length > 0 ? (
+              monedas.map((moneda) => (
+                <option key={moneda.id} value={moneda.id}>
+                  {moneda.nombre} {/* Display the name */}
+                </option>
+              ))
+            ) : (
+              <option value="">Cargando...</option>
+            )}
           </select>
         </div>
+
+        {/* Country Selection */}
         <div className="form-group">
-          <label htmlFor="pais">País</label>
+          <label htmlFor="pais">Pais</label>
           <select
             id="pais"
             name="pais"
-            value={formData.pais}
+            value={formData.pais} // Match the ID with the selected value
             onChange={handleInputChange}
             required
           >
-            <option value="">Seleccionar</option>
-            {paises.map((pais, index) => (
-              <option key={index} value={pais}>
-                {pais}
-              </option>
-            ))}
+            <option value="">Select</option>
+            {paises.length > 0 ? (
+              paises.map((pais) => (
+                <option key={pais.id} value={pais.id}>
+                  {pais.nombre} {/* Display the name */}
+                </option>
+              ))
+            ) : (
+              <option value="">Cargando...</option>
+            )}
           </select>
         </div>
+
         <div className="form-group">
-          <label htmlFor="ciudad">Ciudad</label>
+          <label htmlFor="ciudad">City</label>
           <input
             type="text"
             id="ciudad"
@@ -111,7 +143,7 @@ const Register = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="celular">Celular</label>
+          <label htmlFor="celular">Phone</label>
           <input
             type="tel"
             id="celular"
@@ -122,7 +154,7 @@ const Register = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="correo">Correo Electrónico</label>
+          <label htmlFor="correo">Email</label>
           <input
             type="email"
             id="correo"
@@ -132,7 +164,7 @@ const Register = () => {
             required
           />
         </div>
-        <button type="submit" className="auth-button">Registrar</button>
+        <button type="submit" className="auth-button">Register</button>
       </form>
     </div>
   );
