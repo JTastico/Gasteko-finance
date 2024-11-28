@@ -49,3 +49,19 @@ class Pais(models.Model):
     nombre = models.CharField(max_length=50, unique=True)
     def __str__(self):
         return self.nombre
+
+
+# Create models User
+class Usuario(models.Model):
+    nombre = models.CharField(max_length=100)
+    apellido = models.CharField(max_length=100)
+    edad = models.IntegerField()
+    #Use foreign key because is optimal
+    moneda = models.ForeignKey(Moneda, on_delete=models.SET_NULL, null=True)
+    ciudad = models.CharField(max_length=100)
+    pais = models.ForeignKey(Pais, on_delete=models.SET_NULL, null=True)
+    celular = models.CharField(max_length=20)
+    correo = models.EmailField(unique=True)
+
+    def __str__(self):
+        return f"{self.nombre} {self.apellido}"

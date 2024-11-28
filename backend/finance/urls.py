@@ -5,8 +5,10 @@ from .views import (
     CategoryViewSet,
     BudgetViewSet,
     MonedaListView,
-    PaisListView
-)
+    PaisListView,
+    UsuarioCreateView,
+    UsuarioListView
+    )
 
 router = DefaultRouter()
 router.register(r'transactions', TransactionViewSet)
@@ -17,4 +19,6 @@ urlpatterns = [
     path('', include(router.urls)),
     path('monedas/', MonedaListView.as_view(), name='monedas-list'),
     path('paises/', PaisListView.as_view(), name='paises-list'),
+    path('usuario/registro/', UsuarioCreateView.as_view(), name='usuario-registro'),
+    path('usuario/', UsuarioListView.as_view(), name='usuarios-list'),
 ]

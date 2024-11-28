@@ -7,12 +7,11 @@ from rest_framework.response import Response
 from .models import Transaction, Category, Budget
 
 # Import coin and country models
-from .models import Moneda, Pais
-# Import serializer coins and country
-from .serializers import MonedaSerializer, PaisSerializer
+from .models import Moneda, Pais, Usuario
+# Import serializer coins, country and user
+from .serializers import MonedaSerializer, PaisSerializer, UsuarioSerializer
 
 # Import APIView
-from rest_framework.generics import ListAPIView
 from rest_framework.views import APIView
 
 
@@ -122,3 +121,18 @@ class PaisListView(APIView):
         paises = Pais.objects.all()  # Fetch all countries
         data = [{"id": pais.id, "nombre": pais.nombre} for pais in paises]  # Format data manually
         return Response(data)  # Return response
+
+# Users view
+class UsuarioCreateView(APIView):
+    def post(self, request):
+        serializer = UsuarioSerializer(data=request.data)  # Serialize incoming data
+        if serializer.is_valid():  # Validate the data
+            serializer.save()  # Save to the database
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class UsuarioListView(APIView):
+    def get(self, request):
+        usuarios = Usuario.objects.all()  # Fetch all users
+        serializer = UsuarioSerializer(usuarios, many=True)  # Serialize the data
+        return Response(serializer.data) # Devuelve los usuarios en formato JSON

@@ -5,6 +5,9 @@ from django.contrib.auth.models import User
 # Import coin and country models
 from .models import Moneda, Pais
 
+# Import model of user
+from .models import Usuario
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -66,3 +69,10 @@ class PaisSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pais
         fields = ['id', 'nombre']
+
+
+# Serializer for Usuario model
+class UsuarioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Usuario
+        fields = '__all__'
