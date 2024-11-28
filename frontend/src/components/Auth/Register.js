@@ -16,17 +16,18 @@ const Register = () => {
 
   const [monedas, setMonedas] = useState([]);
   const [paises, setPaises] = useState([]);
-
+// cambiar todas las ip 192.168.0.105 por la ip de la red
   // Fetch coins from API
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/finance/monedas/')
+    axios.get('http://192.168.0.105:8000/api/finance/monedas/')
       .then(response => setMonedas(response.data)) // Save coins to state
       .catch(error => console.log('Error fetching coins:', error)); // Log errors
   }, []);
 
   // Fetch countries from API
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/finance/paises/')
+    // axios.get('http://127.0.0.1:8000/api/finance/paises/')
+    axios.get('http://192.168.0.105:8000/api/finance/paises/')
       .then(response => {
         console.log('Paises:', response.data);
         setPaises(response.data); // Save countries to state
@@ -55,7 +56,7 @@ const Register = () => {
       return;
     }
 
-    axios.post('http://127.0.0.1:8000/api/finance/usuario/registro/', formData)
+    axios.post('http://192.168.0.105:8000/api/finance/usuario/registro/', formData)
       .then(response => {
         console.log('User registered successfully:', response.data); // Log success
         alert('Registration successful!');

@@ -25,6 +25,7 @@ SECRET_KEY = 'django-insecure--gz3mdovkxojwumxmdtv7z4lttj+q=m=@k$_%-q$ilz4@h%a&0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+#  cambiar todas las ip 192.168.0.105 por la ip de la red
 ALLOWED_HOSTS = ['127.0.0.1', '192.168.0.105']
 
 
@@ -53,11 +54,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# cambiar todas las ip 192.168.0.105 por la ip de la red
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
-    'http://127.0.0.105:3000',
     "http://192.168.0.105:3000"
 ]
+CORS_ALLOW_ALL_ORIGINS = True
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
