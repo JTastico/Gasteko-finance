@@ -40,11 +40,43 @@ const Register = () => {
     setFormData({ ...formData, [name]: value }); // Update the state
   };
 
-  // Handle form submission
+
+
+  // Handle form submission an backend
+
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent page reload
-    console.log('Registration data:', formData); // Debugging output
-    // Here, send formData to the backend
+    setIsLoading(true);
+
+    if (!formData.nombre || !formData.apellido || !formData.edad || !formData.moneda || !formData.ciudad || !formData.pais || !formData.celular || !formData.correo) {
+      alert('Por favor, complete todos los campos.');
+      return;
+    }
+
+    axios.post('http://127.0.0.1:8000/api/finance/usuario/registro/', formData)
+      .then(response => {
+        console.log('User registered successfully:', response.data); // Log success
+        alert('Registration successful!');
+        setFormData({
+          nombre: '',
+          apellido: '',
+          edad: '',
+          moneda: '',
+          ciudad: '',
+          pais: '',
+          celular: '',
+          correo: '',
+        })
+      })
+      .catch(error => {
+        console.error('Error registering user:', error.response?.data || error); // Log error
+        alert('Failed to register user.');
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   return (
@@ -164,7 +196,9 @@ const Register = () => {
             required
           />
         </div>
-        <button type="submit" className="auth-button">Register</button>
+        <button type="submit" className="auth-button" disabled={isLoading}>
+          {isLoading ? 'Registrando...' : 'Registrar'}
+        </button>
       </form>
     </div>
   );
