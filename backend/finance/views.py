@@ -6,6 +6,15 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from .models import Transaction, Category, Budget
 
+# Import coin and country models
+from .models import Moneda, Pais
+# Import serializer coins and country
+from .serializers import MonedaSerializer, PaisSerializer
+
+# Import APIView
+from rest_framework.generics import ListAPIView
+from rest_framework.views import APIView
+
 
 from .serializers import (
     TransactionSerializer, 
@@ -96,3 +105,20 @@ class BudgetViewSet(viewsets.ModelViewSet):
             })
 
         return Response(budget_status)
+
+
+# Coins view
+class MonedaListView(APIView):
+    def get(self, request):
+        monedas = Moneda.objects.all()  # Get all currencies
+        data = [{"id": moneda.id, "nombre": moneda.nombre} for moneda in monedas]
+        serializer_class = MonedaSerializer
+        return Response(data)
+
+
+# Countries view
+class PaisListView(APIView):
+    def get(self, request):
+        paises = Pais.objects.all()  # Fetch all countries
+        data = [{"id": pais.id, "nombre": pais.nombre} for pais in paises]  # Format data manually
+        return Response(data)  # Return response

@@ -34,3 +34,18 @@ class Budget(models.Model):
 
     def __str__(self):
         return f"{self.category} - {self.month}/{self.year}"
+
+
+
+
+# Add models type the coins and country
+
+class Moneda(models.Model):
+    nombre = models.CharField(max_length=50, unique=True)
+    def __str__(self):
+        return self.nombre
+
+class Pais(models.Model):
+    nombre = models.CharField(max_length=50, unique=True)
+    def __str__(self):
+        return self.nombre

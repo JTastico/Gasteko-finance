@@ -2,6 +2,9 @@ from rest_framework import serializers
 from .models import Transaction, Category, Budget
 from django.contrib.auth.models import User
 
+# Import coin and country models
+from .models import Moneda, Pais
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -50,3 +53,16 @@ class TransactionSerializer(serializers.ModelSerializer):
     
     def get_category_name(self, obj):
         return obj.category.name
+    
+
+# Serializer for Moneda model
+class MonedaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Moneda
+        fields = ['id', 'nombre']
+
+# Serializer for Pais model
+class PaisSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Pais
+        fields = ['id', 'nombre']
