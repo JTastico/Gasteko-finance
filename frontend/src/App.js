@@ -8,7 +8,6 @@ import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import Layout from './components/Layout/Layout';
 import PrivateRoute from './components/Auth/PrivateRoute';
-import SuccessMessage from './components/SuccessMessage'; // Importar el nuevo componente
 
 function App() {
   return (
@@ -16,8 +15,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/success" element={<SuccessMessage />} /> {/* Ruta para mostrar el mensaje */}
-        
+        <Route path="/" element={<Dashboard />} />
         <Route
           path="/"
           element={

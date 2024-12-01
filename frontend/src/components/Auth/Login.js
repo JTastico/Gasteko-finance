@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import "./styles_all.css";
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({ correo: '', password: '' });
 
   const handleInputChange = (e) => {
@@ -14,6 +17,7 @@ const Login = () => {
       .then(response => {
         localStorage.setItem('authToken', response.data.token);
         alert('Inicio de sesión exitoso');
+        navigate('/'); // Redirige al dashboard o a la ruta principal
       })
       .catch(error => console.error('Error al iniciar sesión:', error));
   };

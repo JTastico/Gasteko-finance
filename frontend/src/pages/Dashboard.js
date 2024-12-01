@@ -1,50 +1,86 @@
-import React, { useState, useEffect } from 'react';
-import IncomeExpenseChart from '../components/Dashboard/IncomeExpenseChart';
-import ExpenseCategoryChart from '../components/Dashboard/ExpenseCategoryChart';
-import BalanceCard from '../components/Dashboard/BalanceCard';
-import { transactionService } from '../services/transactionService';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Doughnut, Bar } from 'react-chartjs-2';
+import 'chart.js/auto';
+import './css/Dashboard.css';
 
 const Dashboard = () => {
-  const [monthlySummary, setMonthlySummary] = useState(null);
-  const [categoryExpenses, setCategoryExpenses] = useState([]);
+  const pieData = {
+    labels: ['Alimentación', 'Transporte', 'Ocio', 'Educación', 'Otros'],
+    datasets: [
+      {
+        data: [30, 20, 25, 15, 10],
+        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#8A2BE2', '#4CAF50'],
+        hoverOffset: 4,
+      },
+    ],
+  };
 
-  useEffect(() => {
-    const fetchDashboardData = async () => {
-      const currentDate = new Date();
-      try {
-        const summaryResponse = await transactionService.getMonthlyExpenseSummary(
-          currentDate.getFullYear(), 
-          currentDate.getMonth() + 1
-        );
-        setMonthlySummary(summaryResponse.data);
-
-        const categoryResponse = await transactionService.getExpenseByCategory(
-          currentDate.getFullYear(), 
-          currentDate.getMonth() + 1
-        );
-        setCategoryExpenses(categoryResponse.data);
-      } catch (error) {
-        console.error('Error fetching dashboard data', error);
-      }
-    };
-
-    fetchDashboardData();
-  }, []);
+  const barData = {
+    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'],
+    datasets: [
+      {
+        label: 'Gastos por Categoría (en Soles)',
+        data: [400, 300, 500, 200, 600], // Gastos en soles
+        backgroundColor: ['#36A2EB', '#FF6384', '#4CAF50', '#FFCE56', '#8A2BE2'],
+      },
+    ],
+  };
 
   return (
-    <div className="dashboard">
-      <h1>Panel de Control</h1>
-      {monthlySummary && (
-        <BalanceCard 
-          income={monthlySummary.total_income}
-          expenses={monthlySummary.total_expenses}
-          balance={monthlySummary.balance}
-        />
-      )}
-      
-      <div className="charts-container">
-        <IncomeExpenseChart data={monthlySummary} />
-        <ExpenseCategoryChart data={categoryExpenses} />
+    <div className="dashboard-container">
+      {/* Barra de navegación */}
+      <nav className="dashboard-navbar">
+        <h1 className="dashboard-logo">Gasteko</h1>
+        <div className="dashboard-nav-links">
+          <Link to="/" className="dashboard-link">Inicio</Link>
+          <Link to="/transactions" className="dashboard-link">Ganancias</Link>
+          <Link to="/transactions" className="dashboard-link">Gastos</Link>
+          <Link to="/budgets" className="dashboard-link">Reportes</Link>
+          <Link to="/categories" className="dashboard-link">Configuración</Link>
+        </div>
+        <div className="dashboard-profile">
+          <span>👤</span>
+        </div>
+      </nav>
+
+      {/* Sección Principal */}
+      <div className="dashboard-main">
+        {/* Resumen de Gastos */}
+        <div className="dashboard-summary">
+          <div className="dashboard-chart">
+            <Doughnut data={pieData} />
+          </div>
+          <div className="dashboard-details">
+            <h2 className="dashboard-detail-title">Resumen de Gastos</h2>
+            <p>Total Gastos: <strong>S/ 1,500</strong></p> {/* Monto total en soles */}
+            <p>Balance Actual: <strong>S/ 3,200</strong></p> {/* Balance en soles */}
+          </div>
+        </div>
+
+        {/* Calendario Interactivo */}
+        <div className="dashboard-calendar">
+          <h2>Calendario</h2>
+          <p className="dashboard-placeholder">[Aquí irá un calendario interactivo]</p>
+        </div>
+      </div>
+
+      {/* Sección Inferior */}
+      <div className="dashboard-lower-section">
+        <div className="dashboard-transactions">
+          <h2>Últimas Transacciones</h2>
+          <ul className="dashboard-list">
+            <li>Compra en supermercado - S/ 80 - Alimentación</li> {/* Ejemplo de gasto en alimentos */}
+            <li>Taxi al trabajo - S/ 20 - Transporte</li> {/* Ejemplo de gasto en transporte */}
+            <li>Entradas al cine - S/ 40 - Ocio</li> {/* Ejemplo de gasto en ocio */}
+            <li>Libros para la universidad - S/ 150 - Educación</li> {/* Ejemplo de gasto en educación */}
+          </ul>
+        </div>
+
+        <div className="dashboard-bar-chart">
+          <h2>Gastos por Categoría</h2>
+          <Bar data={barData} />
+        </div>
       </div>
     </div>
   );
