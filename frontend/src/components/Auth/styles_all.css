@@ -1,68 +1,105 @@
-.auth-container {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
-  
-  h2 {
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
+/* Fondo general de la página */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #000000, #045bb3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Sección de imagen y mensaje */
+.image-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  text-align: center;
+  max-width: 300px;
+}
+
+.image-section img {
+  width: 100%;
+  max-width: 250px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.image-section p {
+  font-size: 16px;
+  font-style: italic;
+  color: #dcdcdc;
+}
+
+/* Estilo del formulario */
+form {
+  background-color: #004c99;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  padding: 30px;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Estilo de los inputs y selects */
+input, select {
+  width: 80%;
+  padding: 10px;
+  border-radius: 45px;
+  border: none;
+  font-size: 14px;
+  box-shadow: inset 0px 2px 4px rgba(255, 0, 0, 0.2);
+}
+
+input:focus, select:focus {
+  outline: none;
+  border: 2px solid #1e90ff;
+}
+
+/* Placeholder estilizado */
+input::placeholder {
+  color: #b0c4de;
+  font-style: italic;
+}
+
+/* Botón de registro */
+button {
+  background-color: #1e90ff;
+  color: #ffffff;
+  font-size: 16px;
+  padding: 10px;
+  border: none;
+  border-radius: 45px;
+  cursor: pointer;
+  transition: background-color 0.67s ease;
+}
+
+button:hover {
+  background-color: #0b65bf;
+}
+
+/* Títulos dentro del formulario */
+h1 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+/* Estilo general para texto */
+label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #dcdcdc;
+}
+
+/* Responsive Design */
+@media (max-width: 400px) {
   form {
-    display: flex;
-    flex-direction: column;
+    width: 90%;
+    padding: 20px;
   }
-  
-  .form-group {
-    margin-bottom: 15px;
-    text-align: left;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #555;
-  }
-  
-  input, select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-  }
-  
-  button {
-    margin-top: 10px;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    background-color: #007bff;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  .auth-link-button {
-    background-color: transparent;
-    color: #007bff;
-    border: none;
-    cursor: pointer;
-    text-decoration: underline;
-  }
-  
-  .auth-link-button:hover {
-    color: #0056b3;
-  }
-  
+}
