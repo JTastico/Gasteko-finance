@@ -106,30 +106,46 @@ class BudgetViewSet(viewsets.ModelViewSet):
         return Response(budget_status)
 
 
-# Coins view
 class MonedaListView(APIView):
     def get(self, request):
-        monedas = Moneda.objects.all()  # Get all currencies
-        data = [{"id": moneda.id, "nombre": moneda.nombre} for moneda in monedas]
-        serializer_class = MonedaSerializer
-        return Response(data)
+        monedas = Moneda.objects.all()
+        serializer = MonedaSerializer(monedas, many=True)
+        return Response(serializer.data)
 
-
-# Countries view
 class PaisListView(APIView):
     def get(self, request):
-        paises = Pais.objects.all()  # Fetch all countries
-        data = [{"id": pais.id, "nombre": pais.nombre} for pais in paises]  # Format data manually
-        return Response(data)  # Return response
+        paises = Pais.objects.all()
+        serializer = PaisSerializer(paises, many=True)
+        return Response(serializer.data)
 
 # Users view
 class UsuarioCreateView(APIView):
     def post(self, request):
-        serializer = UsuarioSerializer(data=request.data)  # Serialize incoming data
-        if serializer.is_valid():  # Validate the data
-            serializer.save()  # Save to the database
+        print("Datos recibidos:", request.data)  # Imprime los datos recibidos
+        serializer = UsuarioSerializer(data=request.data)
+        if serializer.is_valid():
+            usuario = serializer.save()
+            usuario.set_password(request.data['password'])  # Encripta la contraseña
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        print("Errores del serializador:", serializer.errors)  # Imprime los errores del serializador
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    
+    
+class UsuarioLoginView(APIView):
+    def post(self, request):
+        correo = request.data.get('correo')
+        password = request.data.get('password')
+
+        try:
+            usuario = Usuario.objects.get(correo=correo)
+            if usuario.check_password(password):
+                return Response({'message': 'Login successful', 'user_id': usuario.id}, status=status.HTTP_200_OK)
+            return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+        except Usuario.DoesNotExist:
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+
+
 
 class UsuarioListView(APIView):
     def get(self, request):

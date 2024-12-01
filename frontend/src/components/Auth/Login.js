@@ -1,38 +1,29 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import './styles_all.css';
+import React, { useState } from 'react';
+import axios from 'axios';
 
 const Login = () => {
-  const navigate = useNavigate();
+  const [formData, setFormData] = useState({ correo: '', password: '' });
 
-  const handleLogin = (e) => {
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    // Lógica para el login
-    console.log('Iniciando sesión...');
+    axios.post('http://127.0.0.1:8000/api/finance/usuario/login/', formData)
+      .then(response => {
+        localStorage.setItem('authToken', response.data.token);
+        alert('Inicio de sesión exitoso');
+      })
+      .catch(error => console.error('Error al iniciar sesión:', error));
   };
 
   return (
-    <div className="auth-container">
-      <h2>Iniciar Sesión</h2>
-      <form onSubmit={handleLogin} className="auth-form">
-        <div className="form-group">
-          <label htmlFor="email">Correo Electrónico</label>
-          <input type="email" id="email" placeholder="Introduce tu correo" required />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Contraseña</label>
-          <input type="password" id="password" placeholder="Introduce tu contraseña" required />
-        </div>
-        <button type="submit" className="auth-button">Iniciar Sesión</button>
-        <button
-          type="button"
-          className="auth-link-button"
-          onClick={() => navigate('/register')}
-        >
-          ¿No tienes cuenta? Regístrate aquí
-        </button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <input type="email" name="correo" onChange={handleInputChange} placeholder="Correo Electrónico" required />
+      <input type="password" name="password" onChange={handleInputChange} placeholder="Contraseña" required />
+      <button type="submit">Iniciar Sesión</button>
+    </form>
   );
 };
 

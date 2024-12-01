@@ -57,22 +57,17 @@ class TransactionSerializer(serializers.ModelSerializer):
     def get_category_name(self, obj):
         return obj.category.name
     
-
-# Serializer for Moneda model
 class MonedaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Moneda
-        fields = ['id', 'nombre']
+        fields = '__all__'
 
-# Serializer for Pais model
 class PaisSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pais
-        fields = ['id', 'nombre']
+        fields = '__all__'
 
-
-# Serializer for Usuario model
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields = '__all__'
+        fields = '__all__'  # Incluir todos los campos, incluyendo 'password'
