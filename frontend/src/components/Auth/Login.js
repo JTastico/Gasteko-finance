@@ -20,9 +20,31 @@ const Login = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input type="email" name="correo" onChange={handleInputChange} placeholder="Correo Electrónico" required />
-      <input type="password" name="password" onChange={handleInputChange} placeholder="Contraseña" required />
-      <button type="submit">Iniciar Sesión</button>
+      <h1>PAGINA LOGIN</h1>
+      <h2>Bienvenido a Gasteko</h2>
+      <input
+        type="email"
+        name="correo"
+        onChange={handleInputChange}
+        placeholder="Correo Electrónico"
+        required
+      />
+      <input
+        type="password"
+        name="password"
+        onChange={handleInputChange}
+        placeholder="Contraseña"
+        required
+      />
+      <div className="button-container">
+        <button type="submit">Iniciar Sesión</button>
+        <button
+          type="button"
+          onClick={() => window.location.href = '/register'}
+        >
+          Crear Cuenta
+        </button>
+      </div>
     </form>
   );
 };

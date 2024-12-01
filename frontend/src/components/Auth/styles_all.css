@@ -9,29 +9,6 @@ body {
   height: 100vh;
 }
 
-/* Sección de imagen y mensaje */
-.image-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-  text-align: center;
-  max-width: 300px;
-}
-
-.image-section img {
-  width: 100%;
-  max-width: 250px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
-}
-
-.image-section p {
-  font-size: 16px;
-  font-style: italic;
-  color: #dcdcdc;
-}
-
 /* Estilo del formulario */
 form {
   background-color: #004c99;
@@ -56,16 +33,24 @@ input, select {
 
 input:focus, select:focus {
   outline: none;
-  border: 2px solid #1e90ff;
+  border: 3px solid #1e90ff;
 }
 
 /* Placeholder estilizado */
 input::placeholder {
-  color: #b0c4de;
+  color: #707a86;
   font-style: italic;
+  font-size: 14px;
 }
 
-/* Botón de registro */
+/* Contenedor de los botones */
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* Botones */
 button {
   background-color: #1e90ff;
   color: #ffffff;
@@ -74,7 +59,12 @@ button {
   border: none;
   border-radius: 45px;
   cursor: pointer;
-  transition: background-color 0.67s ease;
+  transition: background-color 0.5s ease;
+  flex: 1;
+}
+
+button:hover {
+  background-color: #0b65bf;
 }
 
 button:hover {
@@ -85,9 +75,15 @@ button:hover {
 h1 {
   text-align: center;
   font-size: 24px;
-  margin-bottom: 20px;
   color: #ffffff;
 }
+h2 {
+  text-align: center;
+  font-size: 15px;
+  margin-bottom: 20px;
+  color: #ffffffc4;
+}
+
 
 /* Estilo general para texto */
 label {

@@ -41,7 +41,7 @@ const Register = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h1>PAGINA DE R</h1>
+      <h1>PAGINA DE REGISTRO</h1>
       {/* Campos del formulario */}
       <input type="text" name="nombre" onChange={handleInputChange} placeholder="Nombre" required />
       <input type="text" name="apellido" onChange={handleInputChange} placeholder="Apellido" required />
