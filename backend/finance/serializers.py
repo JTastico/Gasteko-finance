@@ -54,7 +54,7 @@ class BudgetSerializer(serializers.ModelSerializer):
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = '__all__'
+        fields = ['id', 'name']
 
 class TransactionSerializer(serializers.ModelSerializer):
     category_name = serializers.SerializerMethodField()

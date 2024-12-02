@@ -5,7 +5,6 @@ from django.contrib.auth.hashers import make_password, check_password
 
 class Category(models.Model):
     name = models.CharField(max_length=50, unique=True)
-    icon = models.CharField(max_length=50, blank=True, null=True)
 
     def __str__(self):
         return self.name

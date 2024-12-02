@@ -9,19 +9,20 @@ import Categories from './pages/Categories';
 import Layout from './components/Layout/Layout';
 import PrivateRoute from './components/Auth/PrivateRoute';
 import { AuthProvider } from './context/AuthContext'; // Importa el contexto
-import { transactionService } from './services/transactionService'; // Ajusta la ruta
 import AddTransactionComponent from './components/Transactions/AddTransactionComponent'; // Importa el nuevo componente
+import UserProfile from './pages/Profile';
 
 function App() {
   return (
-    <AuthProvider> {/* Envolvemos toda la aplicación con el contexto de autenticación */}
+    <AuthProvider>
+      {/* Envolvemos toda la aplicación con el contexto de autenticación */}
       <Router>
         <Routes>
+          {/* Rutas públicas */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           
-          <Route path="/" element={<Dashboard />} />
-          
+          {/* Rutas privadas */}
           <Route
             path="/"
             element={
@@ -32,7 +33,16 @@ function App() {
               </PrivateRoute>
             }
           />
-          
+          <Route
+            path="/profile"
+            element={
+              <PrivateRoute>
+                <Layout>
+                  <UserProfile />
+                </Layout>
+              </PrivateRoute>
+            }
+          />
           <Route
             path="/transactions"
             element={
@@ -43,7 +53,6 @@ function App() {
               </PrivateRoute>
             }
           />
-          
           <Route
             path="/budgets"
             element={
@@ -54,7 +63,7 @@ function App() {
               </PrivateRoute>
             }
           />
-          
+
           <Route
             path="/categories"
             element={
@@ -66,13 +75,12 @@ function App() {
             }
           />
 
-          {/* Ruta para el componente de agregar transacción */}
           <Route
             path="/add-transaction"
             element={
               <PrivateRoute>
                 <Layout>
-                  <AddTransactionComponent /> {/* Agrega este componente aquí */}
+                  <AddTransactionComponent />
                 </Layout>
               </PrivateRoute>
             }

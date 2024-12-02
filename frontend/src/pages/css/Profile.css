@@ -1,0 +1,85 @@
+/* Encabezado */
+.profile-header {
+    background: linear-gradient(180deg, #3b82f6, #2563eb);
+    color: #ffffff;
+    text-align: center;
+    padding: 20px 0;
+  }
+  
+  .profile-name {
+    font-size: 32px;
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  .profile-title {
+    font-size: 18px;
+    font-weight: 400;
+    margin-top: 8px;
+  }
+  
+  /* Información personal */
+  .personal-info {
+    display: flex;
+    align-items: center;
+    background-color: #f3f4f6;
+    padding: 20px;
+  }
+  
+  .profile-photo {
+    margin-right: 20px;
+  }
+  
+  .photo-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid #ffffff;
+  }
+  
+  .personal-details p {
+    font-size: 16px;
+    margin: 4px 0;
+  }
+  
+  .personal-details strong {
+    font-weight: bold;
+  }
+  
+  .personal-details em {
+    font-style: italic;
+    color: #6b7280;
+  }
+  
+  /* Intereses y hobbies */
+  .hobbies {
+    background-color: #f9fafb;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .hobbies h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+  
+  .hobby-icons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    justify-content: center;
+  }
+  
+  .hobby-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    border: 2px solid #60a5fa;
+    border-radius: 50%;
+    background-color: #ffffff;
+  }
+  

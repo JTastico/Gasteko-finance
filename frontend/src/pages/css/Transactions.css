@@ -1,0 +1,76 @@
+/* src/screens/Transactions.css */
+
+/* Contenedor principal */
+.transactions-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(180deg, #3b82f6, #2563eb);
+  color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Título de la vista */
+.transactions-title {
+  font-size: 2rem;
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* Lista de transacciones */
+.transactions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Elemento individual de transacción */
+.transaction-item {
+  background-color: #ffffff;
+  color: #333;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.transaction-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Detalles de cada transacción */
+.transaction-details {
+  color: #555;
+}
+
+.transaction-details p {
+  font-size: 1rem;
+  margin: 5px 0;
+}
+
+.transaction-details strong {
+  color: #2563eb; /* Tono azul para resaltar */
+}
+
+/* Estilo para fechas y montos */
+.transaction-details .amount,
+.transaction-details .date {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #2563eb;
+}
+
+.transaction-details .description {
+  font-style: italic;
+  color: #6b7280; /* Color gris más suave */
+}
+
+.transaction-details .type {
+  font-weight: bold;
+  color: #10b981; /* Verde para indicar tipo de transacción (por ejemplo, ingreso) */
+}

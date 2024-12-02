@@ -28,7 +28,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/finance/', include('finance.urls')),
     path('', include(router.urls)),
-    path('api/finance/', include(router.urls)),
     path('api/finance/add_transaction/', TransactionViewSet.as_view({'post': 'create'}), name='add_transaction'),
 
 ]

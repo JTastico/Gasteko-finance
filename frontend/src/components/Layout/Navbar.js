@@ -16,13 +16,14 @@ const Navbar = () => {
         className={`dashboard-nav-links ${isMobile ? 'mobile' : ''}`}
       >
         <Link to="/" className="dashboard-link">Inicio</Link>
-        <Link to="/transactions" className="dashboard-link">Ganancias</Link>
+        <Link to="/budgets" className="dashboard-link">Ganancias</Link>
         <Link to="/transactions" className="dashboard-link">Gastos</Link>
-        <Link to="/budgets" className="dashboard-link">Reportes</Link>
-        <Link to="/categories" className="dashboard-link">Configuración</Link>
+        <Link to="/categories" className="dashboard-link">Categorías</Link>
       </div>
       <div className="dashboard-profile">
-        <span>👤</span>
+        <Link to="/profile" className="dashboard-link">
+          <span>👤</span>
+        </Link>"
       </div>
       <div className="hamburger-menu" onClick={toggleMenu}>
         ☰

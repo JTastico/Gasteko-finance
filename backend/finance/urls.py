@@ -8,8 +8,11 @@ from .views import (
     MonedaListView,
     PaisListView,
     CategoryListView,
+    TransactionListView,
+    BudgetListView,
     UsuarioCreateView,
     UsuarioListView,
+    CategoryCreateView,
     UsuarioLoginView  # Importación de la vista de inicio de sesión
 )
 
@@ -28,6 +31,10 @@ urlpatterns = [
     path('monedas/', MonedaListView.as_view(), name='monedas-list'),
     path('paises/', PaisListView.as_view(), name='paises-list'),
     path('categorias/', CategoryListView.as_view(), name='categorias-list'),
+    path('transactions/', TransactionListView.as_view(), name='transactions-list'),
+    path('categorias/crear/', CategoryCreateView.as_view(), name='categorias-crear'),
+    path('transacciones/', TransactionListView.as_view(), name='transacciones-list'),
+    path('presupuestos/', BudgetListView.as_view(), name='presupuestos-list'),
     path('api/finance/add_transaction/', AddTransactionView.as_view(), name='add_transaction'),
 
     # Rutas para usuario (registro y listado)

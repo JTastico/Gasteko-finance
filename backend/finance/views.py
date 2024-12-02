@@ -80,6 +80,28 @@ class TransactionViewSet(viewsets.ModelViewSet):
         return Response(list(expenses))
 
 
+class CategoryCreateView(APIView):
+    permission_classes = [IsAuthenticated]  # Solo usuarios autenticados pueden acceder a esta vista
+
+    def post(self, request):
+        """
+        Crea una nueva categoría con el nombre proporcionado en la solicitud.
+        """
+        serializer = CategorySerializer(data=request.data)
+
+        # Verificar que los datos proporcionados sean válidos
+        if serializer.is_valid():
+            # Guardar la nueva categoría en la base de datos
+            serializer.save()
+
+            # Devolver la categoría creada
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        # Si los datos no son válidos, devolver los errores
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
 class AddTransactionView(APIView):
     permission_classes = [IsAuthenticated]  # Solo usuarios autenticados pueden acceder a esta vista
 
@@ -154,6 +176,11 @@ class BudgetViewSet(viewsets.ModelViewSet):
         return Response(budget_status)
 
 
+
+
+
+
+
 class MonedaListView(APIView):
     def get(self, request):
         monedas = Moneda.objects.all()
@@ -171,7 +198,18 @@ class CategoryListView(APIView):
         categorias = Category.objects.all()
         serializer = CategorySerializer(categorias, many=True)
         return Response(serializer.data)
+    
+class TransactionListView(APIView):
+    def get(self, request):
+        transacciones = Transaction.objects.all()
+        serializer = TransactionSerializer(transacciones, many=True)
+        return Response(serializer.data)
 
+class BudgetListView(APIView):
+    def get(self, request):
+        presupuestos = Budget.objects.all()
+        serializer = BudgetSerializer(presupuestos, many=True)
+        return Response(serializer.data)
 # Users view
 class UsuarioCreateView(APIView):
     def post(self, request):

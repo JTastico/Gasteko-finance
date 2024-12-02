@@ -1,0 +1,124 @@
+/* Contenedor principal */
+.categories-container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #f4f6f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Títulos principales */
+  .categories-container h1 {
+    text-align: center;
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  /* Lista de categorías */
+  .category-list {
+    margin-top: 20px;
+  }
+  
+  .category-list h2 {
+    font-size: 1.5rem;
+    color: #4a4a4a;
+    margin-bottom: 10px;
+  }
+  
+  .category-list ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .category-list li {
+    background-color: #ffffff;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .category-list li:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .category-list li:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* Añadir categoría */
+  .add-category {
+    margin-top: 40px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .add-category h2 {
+    font-size: 1.25rem;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  .add-category input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+  }
+  
+  .add-category input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .add-category button {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 12px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s ease;
+  }
+  
+  .add-category button:hover {
+    background-color: #0056b3;
+  }
+  
+  .add-category button:active {
+    transform: scale(0.98);
+  }
+  
+  /* Mensajes de estado */
+  .loading,
+  .error {
+    text-align: center;
+    font-size: 1rem;
+    color: #ff6b6b;
+  }
+  
+  .loading {
+    color: #f1a9a9;
+  }
+  
+  .error {
+    color: #ff6b6b;
+  }
+  
+  .category-list ul li span {
+    font-weight: 600;
+  }
+  
