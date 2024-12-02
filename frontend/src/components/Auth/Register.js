@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import "./styles_all.css";
+import "./css/Register.css"; // Asegúrate de que el archivo CSS esté en la misma carpeta
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -40,26 +40,28 @@ const Register = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>PAGINA DE REGISTRO</h1>
-      {/* Campos del formulario */}
-      <input type="text" name="nombre" onChange={handleInputChange} placeholder="Nombre" required />
-      <input type="text" name="apellido" onChange={handleInputChange} placeholder="Apellido" required />
-      <input type="number" name="edad" onChange={handleInputChange} placeholder="Edad" required />
-      <select name="moneda" onChange={handleInputChange} required>
-        <option value="">Seleccionar Moneda</option>
-        {monedas.map(moneda => <option key={moneda.id} value={moneda.id}>{moneda.nombre}</option>)}
-      </select>
-      <select name="pais" onChange={handleInputChange} required>
-        <option value="">Seleccionar País</option>
-        {paises.map(pais => <option key={pais.id} value={pais.id}>{pais.nombre}</option>)}
-      </select>
-      <input type="text" name="ciudad" onChange={handleInputChange} placeholder="Ciudad" required />
-      <input type="text" name="celular" onChange={handleInputChange} placeholder="Teléfono" required />
-      <input type="email" name="correo" onChange={handleInputChange} placeholder="Correo Electrónico" required />
-      <input type="password" name="password" onChange={handleInputChange} placeholder="Contraseña" required />
-      <button type="submit">Registrar</button>
-    </form>
+    <div className="register-page">
+      <form onSubmit={handleSubmit}>
+        <h1>PÁGINA DE REGISTRO</h1>
+        {/* Campos del formulario */}
+        <input type="text" name="nombre" onChange={handleInputChange} placeholder="Nombre" required />
+        <input type="text" name="apellido" onChange={handleInputChange} placeholder="Apellido" required />
+        <input type="number" name="edad" onChange={handleInputChange} placeholder="Edad" required />
+        <select name="moneda" onChange={handleInputChange} required>
+          <option value="">Seleccionar Moneda</option>
+          {monedas.map(moneda => <option key={moneda.id} value={moneda.id}>{moneda.nombre}</option>)}
+        </select>
+        <select name="pais" onChange={handleInputChange} required>
+          <option value="">Seleccionar País</option>
+          {paises.map(pais => <option key={pais.id} value={pais.id}>{pais.nombre}</option>)}
+        </select>
+        <input type="text" name="ciudad" onChange={handleInputChange} placeholder="Ciudad" required />
+        <input type="text" name="celular" onChange={handleInputChange} placeholder="Teléfono" required />
+        <input type="email" name="correo" onChange={handleInputChange} placeholder="Correo Electrónico" required />
+        <input type="password" name="password" onChange={handleInputChange} placeholder="Contraseña" required />
+        <button type="submit">Registrar</button>
+      </form>
+    </div>
   );
 };
 

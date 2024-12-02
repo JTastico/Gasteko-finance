@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import "./styles_all.css";
+import "./css/Login.css"; // Asegúrate de que el archivo CSS esté en la misma carpeta
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -23,33 +23,35 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>PAGINA LOGIN</h1>
-      <h2>Bienvenido a Gasteko</h2>
-      <input
-        type="email"
-        name="correo"
-        onChange={handleInputChange}
-        placeholder="Correo Electrónico"
-        required
-      />
-      <input
-        type="password"
-        name="password"
-        onChange={handleInputChange}
-        placeholder="Contraseña"
-        required
-      />
-      <div className="button-container">
-        <button type="submit">Iniciar Sesión</button>
-        <button
-          type="button"
-          onClick={() => window.location.href = '/register'}
-        >
-          Crear Cuenta
-        </button>
-      </div>
-    </form>
+    <div className="login-page">
+      <form onSubmit={handleSubmit}>
+        <h1>PÁGINA LOGIN</h1>
+        <h2>Bienvenido a Gasteko</h2>
+        <input
+          type="email"
+          name="correo"
+          onChange={handleInputChange}
+          placeholder="Correo Electrónico"
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          onChange={handleInputChange}
+          placeholder="Contraseña"
+          required
+        />
+        <div className="button-container">
+          <button type="submit">Iniciar Sesión</button>
+          <button
+            type="button"
+            onClick={() => window.location.href = '/register'}
+          >
+            Crear Cuenta
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 
