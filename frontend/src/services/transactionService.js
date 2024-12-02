@@ -1,6 +1,27 @@
 import api from './api';
 
 export const transactionService = {
+
+  handleAddTransaction: async (type, amount, category, userId, token) => {
+    const transaction = {
+      type,
+      amount,
+      category,
+      user: userId,  // Asegúrate de que el campo 'user' sea válido según tu modelo de API
+    };
+
+    try {
+      const response = await api.post('transactions/', transaction, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data;  // Puedes devolver la respuesta si necesitas manejarla
+    } catch (error) {
+      console.error('Error adding transaction:', error);
+      throw error;
+    }
+  },
   getTransactions() {
     return api.get('transactions/');
   },

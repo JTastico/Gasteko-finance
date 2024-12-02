@@ -2,10 +2,12 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import (
     TransactionViewSet,
+    AddTransactionView,
     CategoryViewSet,
     BudgetViewSet,
     MonedaListView,
     PaisListView,
+    CategoryListView,
     UsuarioCreateView,
     UsuarioListView,
     UsuarioLoginView  # Importación de la vista de inicio de sesión
@@ -25,6 +27,8 @@ urlpatterns = [
     # Rutas específicas para las vistas basadas en APIView
     path('monedas/', MonedaListView.as_view(), name='monedas-list'),
     path('paises/', PaisListView.as_view(), name='paises-list'),
+    path('categorias/', CategoryListView.as_view(), name='categorias-list'),
+    path('api/finance/add_transaction/', AddTransactionView.as_view(), name='add_transaction'),
 
     # Rutas para usuario (registro y listado)
     path('usuario/registro/', UsuarioCreateView.as_view(), name='usuario-registro'),

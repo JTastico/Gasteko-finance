@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure--gz3mdovkxojwumxmdtv7z4lttj+q=m=@k$_%-q$ilz4@h%a&0
 DEBUG = True
 
 #  cambiar todas las ip 192.168.0.105 por la ip de la red
-ALLOWED_HOSTS = ['127.0.0.1', '192.168.0.105']
+ALLOWED_HOSTS = ['127.0.0.1', '192.168.0.105', '192.168.0.108']
 
 
 # Application definition

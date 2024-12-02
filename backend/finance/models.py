@@ -16,12 +16,12 @@ class Transaction(models.Model):
         ('income', 'Ingreso'),
         ]
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     transaction_date = models.DateField()
     description = models.TextField(blank=True, null=True)
     type = models.CharField(max_length=10, choices=TRANSACTION_TYPES, default='expense')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.amount} - {self.category} ({self.transaction_date})"

@@ -21,6 +21,7 @@ class CategorySerializer(serializers.ModelSerializer):
 class TransactionSerializer(serializers.ModelSerializer):
     category_name = serializers.SerializerMethodField()
     category_icon = serializers.SerializerMethodField()
+    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=False)
 
     class Meta:
         model = Transaction
@@ -31,6 +32,14 @@ class TransactionSerializer(serializers.ModelSerializer):
 
     def get_category_icon(self, obj):
         return obj.category.icon
+
+    def create(self, validated_data):
+        # Asegurarse de que el usuario autenticado se asocie a la transacción
+        user = self.context['request'].user  # Obtener el usuario autenticado
+        validated_data['user'] = user
+        return super().create(validated_data)
+
+
 
 class BudgetSerializer(serializers.ModelSerializer):
     category_name = serializers.SerializerMethodField()

@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Doughnut, Bar } from 'react-chartjs-2';
 import 'chart.js/auto';
 import Navbar from '../components/Layout/Navbar';
 import './css/Dashboard.css';
+import FloatingButton from '../components/Dashboard/FloatingButton';
+import AddTransactionForm from '../components/Transactions/TransactionForm';
 
 const Dashboard = () => {
   const pieData = {
@@ -25,6 +27,26 @@ const Dashboard = () => {
         backgroundColor: ['#36A2EB', '#FF6384', '#4CAF50', '#FFCE56', '#8A2BE2'],
       },
     ],
+  };
+
+
+  const [showForm, setShowForm] = useState(false);
+  const [transactionType, setTransactionType] = useState('');
+
+  const userId = 1; // Aquí obtén el ID del usuario autenticado
+
+  const handleAddExpense = () => {
+    setTransactionType('expense');
+    setShowForm(true);
+  };
+
+  const handleAddIncome = () => {
+    setTransactionType('income');
+    setShowForm(true);
+  };
+
+  const handleCloseForm = () => {
+    setShowForm(false);
   };
 
   return (
@@ -70,6 +92,13 @@ const Dashboard = () => {
           <h2>Gastos por Categoría</h2>
           <Bar data={barData} />
         </div>
+        <div>
+
+      <FloatingButton onAddExpense={handleAddExpense} onAddIncome={handleAddIncome} />
+      {showForm && (
+        <AddTransactionForm type={transactionType} userId={userId} onClose={handleCloseForm} />
+      )}
+    </div>
       </div>
     </div>
   );

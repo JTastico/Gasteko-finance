@@ -23,6 +23,7 @@ from .serializers import (
 from django.db.models import Sum
 from django.utils import timezone
 import calendar
+from rest_framework.permissions import IsAuthenticated
 
 class TransactionViewSet(viewsets.ModelViewSet):
     queryset = Transaction.objects.all()
@@ -30,32 +31,46 @@ class TransactionViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
+        """ Filtra las transacciones por el usuario autenticado. """
         return self.queryset.filter(user=self.request.user)
 
     @action(detail=False, methods=['GET'])
     def monthly_summary(self, request):
+        """
+        Devuelve un resumen mensual de ingresos, gastos y balance.
+        """
+        # Obtener el año y mes desde los parámetros de la solicitud
         year = request.query_params.get('year', timezone.now().year)
         month = request.query_params.get('month', timezone.now().month)
         
+        # Filtrar las transacciones por fecha y tipo
         transactions = self.get_queryset().filter(
             transaction_date__year=year,
             transaction_date__month=month
         )
         
+        # Agregar los totales de ingresos y gastos
         total_income = transactions.filter(type='income').aggregate(Sum('amount'))['amount__sum'] or 0
         total_expenses = transactions.filter(type='expense').aggregate(Sum('amount'))['amount__sum'] or 0
+        
+        # Calcular el balance
+        balance = total_income - total_expenses
         
         return Response({
             'total_income': total_income,
             'total_expenses': total_expenses,
-            'balance': total_income - total_expenses
+            'balance': balance
         })
 
     @action(detail=False, methods=['GET'])
     def expense_by_category(self, request):
+        """
+        Devuelve los gastos por categoría para el mes y año especificado.
+        """
         year = request.query_params.get('year', timezone.now().year)
         month = request.query_params.get('month', timezone.now().month)
         
+        # Filtrar solo los gastos del usuario y por fecha
         expenses = self.get_queryset().filter(
             transaction_date__year=year,
             transaction_date__month=month,
@@ -63,6 +78,39 @@ class TransactionViewSet(viewsets.ModelViewSet):
         ).values('category__name', 'category__icon').annotate(total=Sum('amount'))
         
         return Response(list(expenses))
+
+
+class AddTransactionView(APIView):
+    permission_classes = [IsAuthenticated]  # Solo usuarios autenticados pueden acceder a esta vista
+
+    def post(self, request):
+        """
+        Agrega una nueva transacción de tipo 'expense' (gasto) con el monto y la categoría proporcionada.
+        """
+        amount = request.data.get('amount')  # Obtener el monto del gasto desde la solicitud
+        category_id = request.data.get('category')  # Obtener el ID de la categoría desde la solicitud
+
+        # Verificar que los datos necesarios estén presentes
+        if amount is None or category_id is None:
+            return Response({'error': 'Se requiere monto y categoría'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            # Verificar si la categoría existe
+            category = Category.objects.get(id=category_id)
+        except Category.DoesNotExist:
+            return Response({'error': 'Categoría no encontrada'}, status=status.HTTP_404_NOT_FOUND)
+        
+        # Crear la transacción
+        transaction = Transaction.objects.create(
+            amount=amount,
+            category=category,
+            type='expense',  # Tipo 'expense' para un gasto
+            user=request.user  # Asignar al usuario autenticado
+        )
+
+        # Serializar la transacción y devolver la respuesta
+        serializer = TransactionSerializer(transaction)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
@@ -116,6 +164,12 @@ class PaisListView(APIView):
     def get(self, request):
         paises = Pais.objects.all()
         serializer = PaisSerializer(paises, many=True)
+        return Response(serializer.data)
+    
+class CategoryListView(APIView):
+    def get(self, request):
+        categorias = Category.objects.all()
+        serializer = CategorySerializer(categorias, many=True)
         return Response(serializer.data)
 
 # Users view
