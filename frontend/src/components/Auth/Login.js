@@ -13,7 +13,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://127.0.0.1:8000/api/finance/usuario/login/', formData)
+    axios.post('http://192.168.0.108:8000/api/finance/usuario/login/', formData)
       .then(response => {
         localStorage.setItem('authToken', response.data.token);
         alert('Inicio de sesión exitoso');

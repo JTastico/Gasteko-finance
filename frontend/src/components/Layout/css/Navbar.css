@@ -1,0 +1,87 @@
+/* Estilos generales del navbar */
+.dashboard-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #004c99;
+  padding: 10px 20px;
+}
+
+.dashboard-logo {
+  color: white;
+  font-size: 24px;
+}
+
+/* Menú de navegación */
+.dashboard-nav-links {
+  display: flex;
+  gap: 15px;
+}
+
+/* Estilo de los enlaces del navbar */
+.dashboard-link {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+/* Barra de perfil */
+.dashboard-profile {
+  color: white;
+  font-size: 20px;
+}
+
+/* Estilos para el menú hamburguesa */
+.hamburger-menu {
+  display: none;
+  font-size: 30px;
+  cursor: pointer;
+  color: white;
+}
+
+/* Responsive Design - Menú desplegable en pantallas pequeñas */
+@media (max-width: 768px) {
+  .dashboard-navbar {
+    flex-direction: column;
+  }
+
+  .dashboard-logo {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  /* Menu de navegación en modo móvil */
+  .dashboard-nav-links {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    background-color: #004c99;
+    width: 200px;
+    height: 100vh;
+    transition: right 0.3s ease;
+  }
+
+  /* Mostrar el menú cuando tiene la clase 'mobile' */
+  .dashboard-nav-links.mobile {
+    right: 0;
+  }
+
+  /* Mostrar el menú hamburguesa en pantallas pequeñas */
+  .hamburger-menu {
+    display: block;
+  }
+
+  /* Estilos de los enlaces del navbar en pantallas pequeñas */
+  .dashboard-link {
+    padding: 15px;
+    border-bottom: 1px solid #fff;
+    text-align: center;
+  }
+
+  /* Ocultar el ícono del perfil en pantallas pequeñas */
+  .dashboard-profile {
+    display: none;
+  }
+}

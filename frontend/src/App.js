@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './components/Auth/Login';
+import Register from './components/Auth/Register';
 import Dashboard from './pages/Dashboard';
 import Transactions from './pages/Transactions';
 import Budgets from './pages/Budgets';
 import Categories from './pages/Categories';
-import Login from './components/Auth/Login';
-import Register from './components/Auth/Register';
 import Layout from './components/Layout/Layout';
 import PrivateRoute from './components/Auth/PrivateRoute';
 
@@ -15,8 +15,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route exact path="/" element={<Dashboard />} />
-
+        <Route path="/" element={<Dashboard />} />
         <Route
           path="/"
           element={

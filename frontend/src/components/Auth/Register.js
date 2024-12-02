@@ -19,11 +19,11 @@ const Register = () => {
   const [paises, setPaises] = useState([]);
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/finance/monedas/')
+    axios.get('http://192.168.0.108:8000/api/finance/monedas/')
       .then(response => setMonedas(response.data))
       .catch(error => console.error('Error fetching monedas:', error));
 
-    axios.get('http://127.0.0.1:8000/api/finance/paises/')
+    axios.get('http://192.168.0.108:8000/api/finance/paises/')
       .then(response => setPaises(response.data))
       .catch(error => console.error('Error fetching paises:', error));
   }, []);
@@ -34,7 +34,7 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://127.0.0.1:8000/api/finance/usuario/registro/', formData)
+    axios.post('http://192.168.0.108:8000/api/finance/usuario/registro/', formData)
       .then(response => alert('Registro exitoso'))
       .catch(error => console.error('Error al registrar usuario:', error));
   };

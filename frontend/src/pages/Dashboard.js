@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Doughnut, Bar } from 'react-chartjs-2';
 import 'chart.js/auto';
+import Navbar from '../components/Layout/Navbar';
 import './css/Dashboard.css';
 
 const Dashboard = () => {
@@ -28,21 +28,10 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="dashboard-container">
+    <div>
       {/* Barra de navegación */}
-      <nav className="dashboard-navbar">
-        <h1 className="dashboard-logo">Gasteko</h1>
-        <div className="dashboard-nav-links">
-          <Link to="/" className="dashboard-link">Inicio</Link>
-          <Link to="/transactions" className="dashboard-link">Ganancias</Link>
-          <Link to="/transactions" className="dashboard-link">Gastos</Link>
-          <Link to="/budgets" className="dashboard-link">Reportes</Link>
-          <Link to="/categories" className="dashboard-link">Configuración</Link>
-        </div>
-        <div className="dashboard-profile">
-          <span>👤</span>
-        </div>
-      </nav>
+      <Navbar />
+
 
       {/* Sección Principal */}
       <div className="dashboard-main">
